@@ -1,24 +1,23 @@
-import React, { Component, Fragment} from "react";
-import Tree from "react-ui-tree";
-import initialTree from "./tree";
-import Icon from "react-icons-kit";
-import { folder } from "react-icons-kit/feather/folder";
-import { file } from "react-icons-kit/feather/file";
-import { folderPlus } from "react-icons-kit/feather/folderPlus";
-import { filePlus } from "react-icons-kit/feather/filePlus";
+import React, { Component, Fragment} from "react"
+import Tree from "react-ui-tree"
+import initialTree from "./tree"
+import Icon from "react-icons-kit"
+import { folder } from "react-icons-kit/feather/folder"
+import { file } from "react-icons-kit/feather/file"
+import { folderPlus } from "react-icons-kit/feather/folderPlus"
+import { filePlus } from "react-icons-kit/feather/filePlus"
 import { folderUpload } from 'react-icons-kit/icomoon/folderUpload'
 import {plus} from 'react-icons-kit/feather/plus'
 import styled from "styled-components";
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu"
 import _ from "lodash";
 import { StrollableContainer } from "react-stroller";
-import deepdash from "deepdash";
-import Logo from './logo.png'
-import "./style/styles.css";
-import "react-ui-tree/dist/react-ui-tree.css";
-import "./style/theme.css";
-import "./style/react-contextmenu.css";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import deepdash from "deepdash"
+import "./style/styles.css"
+import "react-ui-tree/dist/react-ui-tree.css"
+import "./style/theme.css"
+import "./style/react-contextmenu.css"
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload , faFolderPlus} from '@fortawesome/free-solid-svg-icons'
 
@@ -125,7 +124,7 @@ export default class Sidebar extends Component {
             <div>       
                 {/*                           //////////////////////      sidebar //////////////////                     */}
                 <div className="tree sidebar pl-1">
-                    <img src={Logo} className="my-2 ml-1"/>
+                    <img src="images/yfiles-logo-web.png" className="my-2 ml-1" width="250px" />
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="ml-4 mb-4 mt-1">
                         <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
                             <Icon title="New" icon={plus} className="mr-1"/>
