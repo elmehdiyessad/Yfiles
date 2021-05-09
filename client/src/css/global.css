@@ -1,0 +1,31 @@
+*{
+    font-family: 'Exo 2', sans-serif;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+
+.BackgroundStyle{
+    background-image: linear-gradient(#FFF, #FF5757);
+    background-color: linear-gradient(#FFF, #FF5757);
+    background-size: cover;
+    background-repeat: no-repeat; /* Repeats vertically across the scree */
+    background-attachment: fixed;
+}
+
+
+#conteneur{
+    height: 470px;
+    width: 750px;
+    margin: auto;
+    background: transparent;
+    /*background: yellow;*/
+    /*border: 2px solid lightgreen;*/
+    position: relative;
+    z-index: 101;
+}
