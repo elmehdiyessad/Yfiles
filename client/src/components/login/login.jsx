@@ -1,44 +1,39 @@
-import React from 'react'
-import { BrowserRouter as Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { auth } from '../../firebase'
+import LoginForm from './loginForm'
+import { useHistory } from "react-router-dom";
+import '../../css/global.css';
+import '../../css/login.css';
 
 export default function Signin() {
+
+    // use History | redirect user to profil page if he is login
+    let history = useHistory();
+
+
+    useEffect(() => {
+        let body = document.body
+        body.classList.add('BackgroundStyle')
+        auth.onAuthStateChanged((user) => {
+            if(user){
+                history.push('/profil')
+            }
+        })
+    })
+
     return (
-        <div>
-            <form className="form-signin" onSubmit={this.handleSubmit}>
-                <p className="text-center"><img className="mb-4" src="images/meteo.png" align="center" alt="logo" width="100" /></p>
-                <h1 className="h3 mb-3 font-weight-normal text-center text-white">Sign in</h1>
-                {/* Alert */}
-                <div className={this.state.alertDanger} role="alert"><strong>Warning !</strong> { this.state.error }</div>
+        <div id="container">                      
+        <div className="container">
+        <div className="row mt-5">
+        <div className="col-md-4"></div>{/* */}
 
-                <div className="form-group">
-                <label className="sr-only">Email address</label>
-                <input
-                type="email"
-                name="email"
-                className="form-control" 
-                placeholder="Email address" 
-                onChange={this.handleChange}
-                />
-                </div>
+            <div id="formulaire" className="col-md-4">
+                <LoginForm />
+            </div>
 
-                <div className="form-group">
-                <label className="sr-only">Password</label>
-                <input 
-                type="password"
-                name="password"
-                className="form-control" 
-                placeholder="Password" 
-                onChange={this.handleChange} />
-                </div>
-
-                <button 
-                type="submit" 
-                className="btn btn-block btn-primary">
-                Sign in
-                </button>
-                <p className="text-center mt-2"><Link to="/register">Create an Account</Link></p>
-                <p className="mt-5 mb-3 text-white text-center"><small>&copy; METEO 2019-2020</small></p>
-            </form>
-        </div>
+        <div className="col-md-4"></div>{/* */}
+        </div>{/* FIN ROW */}
+        </div>{/* FIN CONTAINER */}
+    </div>
     )
 }
