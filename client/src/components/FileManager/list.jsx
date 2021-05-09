@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ListElement from './ListElement'
+import ListElement from './listElement'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAlphaUp ,faSortAlphaDown , faThList , faThLarge} from '@fortawesome/free-solid-svg-icons'
 export default class List extends Component {

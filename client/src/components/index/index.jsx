@@ -8,7 +8,7 @@ import Footer from './footer';
 import '../../css/global.css';
 import '../../css/index.css';
 
-export default function App() {
+export default function Index() {
 
   useEffect(() => {
     let body = document.body

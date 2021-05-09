@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import List from './List';
-import NavBar from './NavBar'
-import SideBar from './Sidebar'
+import List from './list';
+import NavBar from './navbar'
+import SideBar from './sidebar'
 import "./style/styles.css"
 class Home extends Component {
     render() {
@@ -21,4 +21,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Home
