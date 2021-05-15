@@ -1,9 +1,4 @@
 .tree {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: -webkit-fill-available;
   height: 100vh;
   overflow: hidden;
   background-color: #f9f9f9;

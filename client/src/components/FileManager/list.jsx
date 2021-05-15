@@ -5,19 +5,19 @@ import { faSortAlphaUp ,faSortAlphaDown , faThList , faThLarge} from '@fortaweso
 export default class List extends Component {
     render() {
         return (
-            <div>
-                <div className="col-12 py-3 px-4 border-bottom">
-                    <div className="float-end ml-auto" style={{width:"max-content"}}>
-                        <FontAwesomeIcon icon={faThList} className="mr-2 icon" />
-                        <FontAwesomeIcon icon={faThLarge} className="mr-2 icon" />
-                        <FontAwesomeIcon icon={faSortAlphaDown} className="mr-2 icon"/>
+            <div className="">
+                <div className="col-12 py-3 px-3 border-bottom  ">
+                    <div className=" ml-auto" style={{width:"max-content"}}>
+                        <FontAwesomeIcon icon={faThList} className="mr-2 icon p" />
+                        <FontAwesomeIcon icon={faThLarge} className="mr-2 icon p" />
+                        <FontAwesomeIcon icon={faSortAlphaDown} className="mr-2 icon p"/>
                     </div>
                 </div>
-                <div className="py-3 pl-0 border-bottom d-flex">
-                    <div className="col-6">Name</div>
-                    <div className="col-2">Type</div>
-                    <div className="col-2">Size</div>
-                    <div className="col-2">Created</div>
+                <div className=" col-12 py-3 px-0 border-bottom r " style={{display:"flex"}}>
+                    <div className="col-6 ">Name</div>
+                    <div className="col-2 ">Type</div>
+                    <div className="col-2 ">Size</div>
+                    <div className="col-2 ">Created</div>
                 </div>
                 <ListElement/>
             </div>
