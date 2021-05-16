@@ -18,7 +18,7 @@ import "./style/react-contextmenu.css"
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload , faFolderPlus , faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import Context from '../context/context'
     
 // add deepdash to lodash
 deepdash(_);
@@ -39,15 +39,13 @@ const initialState = {
 };
 /*                         /////////////////////////       component     //////////////////////////             */
 export default class Sidebar extends Component {
-  
- 
-   
     
     state = initialState;
         toggle = () => {
        this.setState({dropdownOpen : !this.state.dropdownOpen}) 
     }
 
+  
   renderNode = node => {
     const renderFileFolderToolbar = (isFolder, caption) => (
       <Toolbar>
@@ -78,6 +76,9 @@ export default class Sidebar extends Component {
 
     const isFolder = node.hasOwnProperty("children");
     return (
+      <Context.Consumer >
+      {value => (          
+      <div onClick={ () => value.setCurrentFolder(node.id)}>
       <ContextMenuTrigger
         id="FILE_CONTEXT_MENU"
         key={node.id}
@@ -87,7 +88,10 @@ export default class Sidebar extends Component {
         onItemClick={this.handleContextClick}
       >
         {renderFileFolderToolbar(isFolder, node.module)}
-      </ContextMenuTrigger>
+        </ContextMenuTrigger>
+        </div>
+           )}
+      </Context.Consumer>
     );
   };
 

@@ -16,7 +16,7 @@ export default function Signin() {
         body.classList.add('BackgroundStyle')
         auth.onAuthStateChanged((user) => {
             if(user){
-                history.push('/profil')
+                history.push('/home')
             }
         })
     })

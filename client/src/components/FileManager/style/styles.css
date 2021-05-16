@@ -81,3 +81,8 @@
 .sidebar .collapse:not(.show) {
   display: block !important;
 }
+
+.scroll {
+  overflow-y: auto;
+  height: inherit;
+}
