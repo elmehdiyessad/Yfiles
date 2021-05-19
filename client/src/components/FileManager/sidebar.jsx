@@ -1,11 +1,9 @@
-import React, { Component, Fragment} from "react"
+import React, { Component} from "react"
 import Tree from "react-ui-tree"
 import initialTree from "./tree"
 import Icon from "react-icons-kit"
 import { folder } from "react-icons-kit/feather/folder"
 import { file } from "react-icons-kit/feather/file"
-import { folderPlus } from "react-icons-kit/feather/folderPlus"
-import { filePlus } from "react-icons-kit/feather/filePlus"
 import { folderUpload } from 'react-icons-kit/icomoon/folderUpload'
 import {plus} from 'react-icons-kit/feather/plus'
 import styled from "styled-components";
@@ -19,7 +17,7 @@ import "./style/theme.css"
 import "./style/react-contextmenu.css"
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileUpload , faFolderPlus} from '@fortawesome/free-solid-svg-icons'
+import { faFileUpload , faFolderPlus , faTimes } from '@fortawesome/free-solid-svg-icons'
 
     
 // add deepdash to lodash
@@ -115,7 +113,11 @@ export default class Sidebar extends Component {
     this.setState(({ collapsed }) => ({ collapsed: !collapsed }));
   };
 
-
+close = () => {
+        var el = document.querySelector(".sidebar")
+         el.style.display= "none"
+    }
+  
   
   /*                    //////////////////////////    render fct ////////////////   */
     render() {
@@ -123,14 +125,15 @@ export default class Sidebar extends Component {
         return (
             <div>       
                 {/*                           //////////////////////      sidebar //////////////////                     */}
-                <div className="tree sidebar pl-1">
-                    <img src="images/yfiles-logo-web.png" className="my-2 ml-1" width="250px" />
+            <div className="tree sidebar pl-1">
+              <FontAwesomeIcon icon={faTimes} className="m-2 icon float-right p s" onClick={ this.close}/>  
+                    <img src="images/yfiles-logo-web.png" className="my-3 ml-0" />
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="ml-4 mb-4 mt-1">
-                        <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
-                            <Icon title="New" icon={plus} className="mr-1"/>
+                      <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
+                        <Icon title="New" icon={plus} className="mr-1"/>
                             Create New
-                        </DropdownToggle>
-                    <DropdownMenu>                     
+                      </DropdownToggle>
+                      <DropdownMenu style={{marginLeft:"-10px"}}>
                         <DropdownItem><FontAwesomeIcon icon={faFolderPlus} className="mr-2 icon" />New Folder</DropdownItem>
                         <DropdownItem divider />    
                         <DropdownItem><Icon title="New" icon={folderUpload} className="mr-2 " style={{color:"#4d4d4d"}} />Upload Folder</DropdownItem>
