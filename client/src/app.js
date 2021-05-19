@@ -6,8 +6,8 @@ import MainPage from './components/index/index'
 import LoginPage from './components/login/login'
 import NotFoundPage from './components/404'
 import RegisterPage from './components/signup/signup'
-import HomePage from './components/fileManager/home'
-import ProfilPage from './components/fileManager/home'
+import HomePage from './components/FileManager/home'
+import ProfilPage from './components/profil/profil'
 
 export default function app() {
     return (
