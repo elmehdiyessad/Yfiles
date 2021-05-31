@@ -24,6 +24,7 @@ export default function pricing() {
             <div id="card-pro" className="card">
                 <h2 className="mb-5">PRO</h2>
                 <h4>20$</h4>
+                <div className="cercle-design" style={{ position: "absolute", top: "350px", left: "200px" }}></div>
                 <em>PER MONTH</em>
                 <button className="btn btn-danger mt-5">See plan <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></button>
             </div>
