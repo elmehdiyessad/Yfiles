@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Navbar, Nav, Form } from 'react-bootstrap'
 
+
 export default function Menu() {
     return (
         <>
@@ -12,7 +13,7 @@ export default function Menu() {
                 <Nav className="mr-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarscroll="true">
                 <Nav.Link href="#">Home</Nav.Link>
                 <Nav.Link href="#">About</Nav.Link>
-                <Nav.Link href="#">Pricing</Nav.Link>
+                <Nav.Link href="#pricing">Pricing</Nav.Link>
                 <Nav.Link href="#">Contact</Nav.Link>
                 </Nav>
                 

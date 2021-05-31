@@ -1,5 +1,8 @@
 import React from 'react'
-import { Carousel, Button } from 'react-bootstrap';
+import { Carousel, Button } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function Slider() {
 
@@ -14,7 +17,7 @@ export default function Slider() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <Button variant="dark" size="lg">Get started now</Button>
+          <Button variant="dark" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item interval={1500}>
@@ -24,7 +27,7 @@ export default function Slider() {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <Button variant="danger" size="lg">Get started now</Button>
+          <Button variant="danger" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
