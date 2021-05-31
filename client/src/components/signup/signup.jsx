@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import '../../css/global.css';
 import '../../css/signup.css';
 
+
 function Signup() {
 
     // use History | redirect user to profil page if he is login
@@ -27,7 +28,9 @@ function Signup() {
         <div className="col-md-4"></div>{/*  */}
 
             <div className="col-md-4">
+
                 <SignupForm />
+                
             </div>
 
         <div className="col-md-4"></div>{/*  */}

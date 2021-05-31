@@ -63,7 +63,8 @@ function SignupForm() {
     }
 
     return (
-        <div>                
+        <div>
+            
             <form onSubmit={ handleSubmit }>
                 <p className="text-center"><img className="mt-4" src="images/yfiles-logo.png" align="center" alt="logo" width="250" /></p>
                 <h1 className="h3 mb-3 font-weight-normal text-light text-center">Create an account</h1>
@@ -72,7 +73,7 @@ function SignupForm() {
                 <div className={ alertStyleError } role="alert"><strong>Warning !</strong> { error }</div>
                 <div className={ alertStyleSuccess } role="alert"><strong>Success !</strong> { success }</div>
                 
-
+                
                 <div className="form-group">
                     <input 
                     type="text"
@@ -109,7 +110,7 @@ function SignupForm() {
                     value={ state.passwordConfirm } 
                     onChange={ handleChange } />
                 </div>
-                <button type="submit" className="btn btn-primary">Sign up</button>
+                <button type="submit" className="btn btn-dark">Sign up</button>
                 <Link to="/login" className="btn btn-light ml-2" role="button">Login</Link>
             </form>
         </div>

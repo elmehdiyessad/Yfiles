@@ -6,7 +6,7 @@ export default function Slider() {
       
   return (
   <>
-    <Carousel>
+    <Carousel style={{ marginBottom: "30px" }}>
       <Carousel.Item>
         <img
           className="d-block w-100"
@@ -14,9 +14,7 @@ export default function Slider() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <Button variant="danger" size="lg">Get started</Button>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <Button variant="dark" size="lg">Get started now</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item interval={1500}>
@@ -26,9 +24,7 @@ export default function Slider() {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <Button variant="danger" size="lg">Get started</Button>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <Button variant="danger" size="lg">Get started now</Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

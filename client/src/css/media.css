@@ -1,0 +1,27 @@
+/* Media queries */
+@media only screen and (max-width: 640px) {
+    h1 {
+      font-size: 18px;
+    }
+    h4 {
+      font-size: 13px;
+    }
+    h3 {
+      font-size: 15px;
+    }
+    p{
+      font-size: 15px;
+    }
+    .statistics-images{
+      width: 70px;
+    }
+    #copyright{
+      display: none;
+    }
+    .carousel button{
+      display: none;
+    }
+    .section{
+      padding: 40px;
+    }
+}

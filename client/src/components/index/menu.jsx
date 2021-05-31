@@ -1,24 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Navbar, Nav, Form } from 'react-bootstrap'
 
-
-function Menu() {
+export default function Menu() {
     return (
         <>
-        <div id="menu">
-            <img className="mt-4" src="images/yfiles-logo-web.png" align="center" alt="logo" width="200" />
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><Link to="/login" className="btn btn-primary ml-2" role="button">Login</Link></li>
-                <li><Link to="/signup" className="btn btn-danger ml-2" role="button">Sign up</Link></li>
-            </ul>
-        </div>
+        <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#"><img src="images/yfiles-logo-web.png" className="mypicture" align="center" alt="logo" width="200" /></Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+            <Navbar.Collapse id="navbarScroll">
+                <Nav className="mr-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarscroll="true">
+                <Nav.Link href="#">Home</Nav.Link>
+                <Nav.Link href="#">About</Nav.Link>
+                <Nav.Link href="#">Pricing</Nav.Link>
+                <Nav.Link href="#">Contact</Nav.Link>
+                </Nav>
+                
+                <Form className="d-flex mr-2 justify-content-end">
+                    <Link to="/login" className="btn btn-primary ml-2" role="button">Login</Link>
+                    <Link to="/signup" className="btn btn-danger ml-2" role="button">Sign up</Link>
+                </Form>
+            </Navbar.Collapse>
+            </Navbar>
         </>
     )
 }
-
-
-export default Menu

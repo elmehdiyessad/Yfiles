@@ -7,6 +7,7 @@ import Startnow from './startnow';
 import Footer from './footer';
 import '../../css/global.css';
 import '../../css/index.css';
+import '../../css/media.css';
 
 export default function Index() {
 
