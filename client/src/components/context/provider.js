@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Context from './context';
 import _ from "lodash";
 import deepdash from "deepdash";
-import { db , storage , storageRef} from '../../firebase'
+import { db , storageRef} from '../../firebase'
 
 deepdash(_);
 export default class Provider extends Component {
