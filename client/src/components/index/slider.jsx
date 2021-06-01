@@ -17,7 +17,7 @@ export default function Slider() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <Button variant="dark" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
+          <Button href="/login" id="getstarted-btn" variant="dark" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item interval={1500}>
@@ -27,7 +27,7 @@ export default function Slider() {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <Button variant="danger" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
+          <Button href="/login" id="getstarted-btn" variant="danger" size="lg">Get started <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

@@ -112,6 +112,7 @@ function SignupForm() {
                 </div>
                 <button type="submit" className="btn btn-dark">Sign up</button>
                 <Link to="/login" className="btn btn-light ml-2" role="button">Login</Link>
+                
             </form>
         </div>
     )
