@@ -5,6 +5,7 @@ import 'firebase/firestore'
 
 
 
+
 // The SDK configuration from Firebase
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,6 +20,7 @@ const db = firebase.firestore()
 const auth = app.auth()
 const storage = firebase.storage()
 const storageRef = storage.ref();
+
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
 export { auth, db, storage, storageRef , googleAuthProvider , FacebookAuthProvider , app}

@@ -10,6 +10,7 @@ import HomePage from './components/FileManager/home'
 //import ProfilPage from './components/profil/profil'
 
 
+
 export default function app() {
     return (
         <div>
@@ -21,6 +22,7 @@ export default function app() {
                     <Route exact path="/signup" component={RegisterPage} />
                     <Route exact path="/home" component={HomePage}/>
                     <Route exact path="/profil" />
+
                     <Route exact path="/404" component={NotFoundPage} />
                     <Redirect to="/404" />
                 </Switch>
