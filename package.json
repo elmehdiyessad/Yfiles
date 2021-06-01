@@ -17,8 +17,6 @@
   },
   "homepage": "https://github.com/elmehdiyessad/Yfiles#readme",
   "dependencies": {
-    "deepdash": "^5.3.7",
-    "firebase": "^8.4.1",
-    "lodash": "^4.17.21"
+    "firebase": "^8.4.1"
   }
 }

@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
+// require('firebase/auth')
+
+
 
 // The SDK configuration from Firebase
 const app = firebase.initializeApp({
@@ -20,3 +21,5 @@ const storageRef = storage.ref();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
 export { auth, db, storage, storageRef , googleAuthProvider , FacebookAuthProvider , app}
+
+

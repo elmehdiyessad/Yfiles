@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
-import SignupForm from './signupForm';
+import SignupForm from './signupForm'
+import Navbar from './navbar'
 import { auth } from '../../firebase'
-import { useHistory } from "react-router-dom";
-import '../../css/global.css';
-import '../../css/signup.css';
+import { useHistory } from "react-router-dom"
+import '../../css/global.css'
+import '../../css/signup.css'
+
+
 
 function Signup() {
 
@@ -21,19 +24,24 @@ function Signup() {
     })
 
     return (
-        <div id="container">
-        <div className="container">
-        <div className="row">
-        <div className="col-md-4"></div>{/*  */}
+        <>
+            <Navbar />
+            <div id="container">
+                <div className="container">
+                <div className="row">
+                <div className="col-md-4"></div>{/*  */}
 
-            <div className="col-md-4">
-                <SignupForm />
+                    <div className="col-md-4 col-4">
+                        
+                        <SignupForm />
+                        
+                    </div>
+
+                <div className="col-md-4"></div>{/*  */}
+                </div>{/* FIN ROW */}
+                </div>{/* FIN CONTAINER */}
             </div>
-
-        <div className="col-md-4"></div>{/*  */}
-        </div>{/* FIN ROW */}
-        </div>{/* FIN CONTAINER */}
-    </div>
+        </>
     )
 }
 

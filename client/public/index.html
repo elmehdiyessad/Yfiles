@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="%PUBLIC_URL%/images/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -17,9 +18,35 @@
     <link rel="manifest" href="./manifest.json" />
     <title>Yfiles app</title>
   </head>
+
   <body class="BackgroundStyle">
 
-    <div id="app"></div>
+ 
+  <div id="app"></div>
+
+  
+  <!-- FACEBOOK SDK -->
+  <script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 749785859019392,
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v10.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
 
 
 

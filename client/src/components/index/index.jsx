@@ -3,10 +3,12 @@ import Menu from './menu';
 import Slider from './slider';
 import Services from './services';
 import Statistics from './statistics';
+import Pricing from './pricing';
 import Startnow from './startnow';
 import Footer from './footer';
 import '../../css/global.css';
 import '../../css/index.css';
+import '../../css/media.css';
 
 export default function Index() {
 
@@ -21,6 +23,7 @@ export default function Index() {
       <Slider />
       <Services />
       <Statistics />
+      <Pricing />
       <Startnow />
       <Footer />
     </>

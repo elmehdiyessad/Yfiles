@@ -13,52 +13,10 @@ body{
     background-attachment: fixed;
 }
 
-/* Menu style */ 
-#menu{
-    background-color: white;
-    height: 55px;
-    width: 100%;
+.gradien-color{
+  background-image: linear-gradient(#ffc2c2, #FFF);
+  background-color: linear-gradient(#ffc2c2, #FFF);
 }
-
-#menu img{
-    position: absolute;
-    left: 10px;
-    top: -18px;
-}
-#menu ul{
-    position: absolute;
-    right: 20px;
-}
-
-
-#menu ul li{
-    float: left;
-    background-color: white;
-    list-style-type: none;
-    padding: 0px 16px;
-    line-height: 55px;
-}
-
-#menu ul li a{
-    font-size: 15px;
-    color: rgb(65, 65, 65);
-    font-style: normal;
-    text-decoration: none;
-}
-
-#menu ul li .btn{
-    color: white;
-}
-
-#menu ul li:last-child{
-    padding: 0px;
-}
-
-#menu ul li a:hover{
-    color: black;
-}
-
-
 
 
 /* Services */
@@ -67,19 +25,11 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   margin: 40px 0px;
 }
 
-.service{
-  width: 33.33%;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 40px;
-}
-.service h1{
+#services .section h1{
   color: black;
   display: block;
   width: 100%;
@@ -87,7 +37,7 @@ body{
   margin: 20px 0px;
   font-size: 27px;
 }
-.service p{
+#services .section p{
   text-align: center;
   margin: 20px 0px;
 }
@@ -99,28 +49,30 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 400px;
-  margin: 40px 0px;
+  min-height: 400px;
+  margin: 50px 0px;
   background-image: linear-gradient(#FFF, #FF5757);
   background-color: linear-gradient(#FFF, #FF5757);
   background-size: cover;
 }
 .section{
   width: 33.33%;
-  height: 400px;
+  height: 350px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 40px;
+  padding: 40px 70px;
 }
 .section h1{
   color: black;
   display: block;
   width: 100%;
   text-align: center;
-  margin: 20px 0px;
+  margin: 5px 0px;
   font-size: 33px;
+  margin: 5px;
 }
+
 
 /* Start now section */
 #start-now-section{
@@ -129,8 +81,8 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 200px;
-  margin: 100px 0px;
+  min-height: 200px;
+  margin: 150px 0px;
 }
 #start-now-section h1, h4{
   text-align: center;
@@ -138,7 +90,61 @@ body{
   width: 100%;
 }
 
+/* Pricing section */
 
+#pricing{
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.card{
+  min-height: 400px;
+  width: 250px;
+  background-color: blue;
+  padding: 100px 50px;
+  margin: 0px 40px;
+  border: none;
+  border-radius: 70px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  box-shadow: 8px 8px 8px #ff9898;
+  text-align: center;
+  color: white;
+}
+#card-free{
+  background-color: #FF5757;
+  position: relative;
+  top: 70px;
+  opacity: 0.88;
+}
+#card-gold{
+  background-color: #FF5757;
+  position: relative;
+  top: 30px;
+}
+#card-pro{
+  background-color: #FF5757;
+  position: relative;
+  top: 70px;
+  opacity: 0.88;
+}
+#pricing h1, p{
+  width: 100%;
+  margin-top: 20px;
+}
+.cercle-design{
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  border: 3px solid white;
+  background-color: transparent;
+  position: absolute;
+  z-index: 5;
+  top: 30px;
+  left: -80px;
+}
 
 /* Footer section */
 #footer{
@@ -146,17 +152,18 @@ body{
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   margin-top: 40px;
   background: #ececec;
+  padding: 40px 0px;
 }
 .footer-section{
   width: 33.33%;
-  height: 200px;
+  min-height: 200px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 40px;
+  padding: 0px 40px;
   margin-top: 20px;
 }
 #footer a{
@@ -174,11 +181,12 @@ body{
 }
 
 
+
+/* Footer END */
 #footer-end{
-  /*background: rgb(226, 226, 226);*/
   background: white;
   width: 100%;
-  height: 45px;
+  min-height: 45px;
 }
 #footer-end em{
   position: absolute;
@@ -209,3 +217,4 @@ body{
   color: rgb(31, 31, 31);
   text-decoration: none;
 }
+

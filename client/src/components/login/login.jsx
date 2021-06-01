@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import '../../css/global.css';
 import '../../css/login.css';
 
+
 export default function Signin() {
 
     // use History | redirect user to profil page if he is login
@@ -16,8 +17,9 @@ export default function Signin() {
         body.classList.add('BackgroundStyle')
         auth.onAuthStateChanged((user) => {
             if(user){
-                history.push('/home')
+                history.push('/profil')
             }
+            console.log(user)
         })
     })
 
