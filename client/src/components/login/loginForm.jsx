@@ -19,7 +19,7 @@ export default function LoginForm() {
     let history = useHistory();
 
     // Login With Facebook Params ********
-    FacebookAuthProvider.addScope('login_with_facebook')
+    // FacebookAuthProvider.addScope('login_with_facebook') *********
     auth.languageCode = 'fr';
     FacebookAuthProvider.setCustomParameters({
         'display': 'popup'

@@ -3,7 +3,7 @@ import React from 'react'
 export default function services() {
     return (
         <>
-            <div id="services" className="col-12">
+            <div id="services" className="col-12 row">
                 <div className="section col-sm-12 col-md-12 col-lg-4 col-xl-4">
 					<img src="images/file.png" alt="file" width="100px" />
                     <h1>Organize team files in a shared space</h1> 

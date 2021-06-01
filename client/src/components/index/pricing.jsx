@@ -4,9 +4,9 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function pricing() {
     return (
-        <div id="pricing">
+        <div className="container" id="pricing">
             <h1 align="center" className="mb-4">Pricing plans</h1>
-            <h5 align="center" style={{ margin: "0px 200px" }} className="text-secondary">You can start with our solution Free and pick an advanced plan if you want to take advantage of multiple functionalities and to have a wide storage capacity</h5>
+            <h5 align="center" className="text-secondary">You can start with our solution Free and pick an advanced plan if you want to take advantage of multiple functionalities and to have a wide storage capacity</h5>
             <div id="card-free" className="card">
                 <h2 className="mb-5">FREE</h2>
                 <h4>0$</h4>
