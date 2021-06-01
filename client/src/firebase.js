@@ -14,9 +14,12 @@ const app = firebase.initializeApp({
     appId: process.env.REACT_APP_FIREBASE_APP_ID
 })
 
+const db = firebase.firestore()
+const auth = app.auth()
+const storage = firebase.storage()
+const storageRef = storage.ref();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
+export { auth, db, storage, storageRef , googleAuthProvider , FacebookAuthProvider , app}
 
 
-export const auth = app.auth()
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
-export default app
