@@ -1,5 +1,5 @@
 export default {
-  module: "root",
+  module: "react-ui-tree",
   id: "root-0",
   children: [
     {
@@ -32,7 +32,6 @@ export default {
     {
       id: "root-2",
       module: "example",
-      collapsed: true,
       children: [
         {
           id: "4",
@@ -54,7 +53,6 @@ export default {
     {
       id: "root-3",
       module: "lib",
-      collapsed: true,
       children: [
         {
           id: "7",
