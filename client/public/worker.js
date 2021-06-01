@@ -1,7 +1,6 @@
 let CACHE_NAME = 'Yfiles';
 let urlsToCache = [
-  '/',
-  '/completed'
+  '/'
 ];
 
 // Install a service worker
