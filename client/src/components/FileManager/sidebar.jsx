@@ -1,11 +1,10 @@
-import React, { Component , Fragment} from "react"
+import React, { Component} from "react"
 import Tree from "react-ui-tree"
+import initialTree from "./tree"
 import Icon from "react-icons-kit"
 import { folder } from "react-icons-kit/feather/folder"
 import { file } from "react-icons-kit/feather/file"
-import {folderOpenO} from 'react-icons-kit/fa/folderOpenO'
 import { folderUpload } from 'react-icons-kit/icomoon/folderUpload'
-import {folderPlus} from 'react-icons-kit/feather/folderPlus'
 import {plus} from 'react-icons-kit/feather/plus'
 import styled from "styled-components";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu"
@@ -16,12 +15,11 @@ import "./style/styles.css"
 import "react-ui-tree/dist/react-ui-tree.css"
 import "./style/theme.css"
 import "./style/react-contextmenu.css"
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem , Progress , Button, Toast, ToastBody, ToastHeader } from 'reactstrap'
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileUpload , faFolderPlus , faTimes , faPen , faTrashAlt , faShare , faDownload , faArrowsAlt , faFolderOpen} from '@fortawesome/free-solid-svg-icons'
-import Context from '../context/context'
-import { db, storage, storageRef } from '../../firebase'
+import { faFileUpload , faFolderPlus , faTimes } from '@fortawesome/free-solid-svg-icons'
 
+    
 // add deepdash to lodash
 deepdash(_);
 
@@ -31,41 +29,47 @@ function collect(props) {
 
 
 /*                                //////////////////        States      ////////////////                        */
-
-/*                         /////////////////////////       component     //////////////////////////             */
-export default class Sidebar extends Component {
-    
-  state = {
+const initialState = {
     active: null,
     dropdownOpen: false,
-    tree: {},
-    collapsed: false,
-    size: 0,
-    totalsize: "0 B"
-  };
+  tree: {
+    ...initialTree
+  },
+  collapsed: false // start with unmodified tree
+};
+/*                         /////////////////////////       component     //////////////////////////             */
+export default class Sidebar extends Component {
   
-  toggle = () => {
+ 
+   
+    
+    state = initialState;
+        toggle = () => {
        this.setState({dropdownOpen : !this.state.dropdownOpen}) 
     }
 
-  
   renderNode = node => {
     const renderFileFolderToolbar = (isFolder, caption) => (
       <Toolbar>
         <FloatLeft>
-          <Icon icon={isFolder ? node.collapsed? folder :folderOpenO : file} />
+          <Icon icon={isFolder ? folder : file} />
           {caption}
         </FloatLeft>
         <ToolbarFileFolder>
-          {isFolder && (
+          {/*isFolder && (
             <Fragment>
               <Icon
                 title="New Folder"
                 icon={folderPlus}
-                onClick={() => this.addItem("folder", node)}
+                //onClick={() => this.addItem("folder", node)}
+              />
+              <Icon
+                title="New File"
+                icon={filePlus}
+                //onClick={() => this.addItem("file", node)}
               />
             </Fragment>
-          )}
+          )*/}
         </ToolbarFileFolder>
       </Toolbar>
     );
@@ -74,61 +78,34 @@ export default class Sidebar extends Component {
 
     const isFolder = node.hasOwnProperty("children");
     return (
-      <Context.Consumer >
-      {value => (          
-      <div onClick={ () => value.setCurrentFolder(node.id)}>
       <ContextMenuTrigger
         id="FILE_CONTEXT_MENU"
         key={node.id}
         name={node.id}
         collect={collect}
         holdToDisplay={-1}
-        onItemClick={value.handleContextClick}
+        onItemClick={this.handleContextClick}
       >
         {renderFileFolderToolbar(isFolder, node.module)}
-        </ContextMenuTrigger>
-        </div>
-           )}
-      </Context.Consumer>
+      </ContextMenuTrigger>
     );
   };
 
-
-
   addItem = (itemType, active) => {
-     
-    const { tree } = this.state;
-    const response = prompt("New folder name", "");
-    
-    if (response !== null || response !== undefined) {
-      var date = new Date()
-      var mounth=(date.getMonth()+1 <10 ) ? `0${date.getMonth()+1}`:date.getMonth()+1
-      const newItem = {
-        id: `root-${Date.now()}`,
-        creationdate: `${date.getDate()}/${mounth}/${date.getFullYear()}`,
-        module: ( response === "" ) ?  `New ${itemType}` : response ,
-        children: [],
-        collapsed: false,
-        size: "-",
-        type: "folder"
-      }
-    
-      const newTree = _.mapDeep(tree, (item, key, parentValue) => {
-        const cloneItem = Object.assign({}, item);
-        if (cloneItem) {
-          if (cloneItem.id === active.id && cloneItem.children) {
-            // folder
-            cloneItem.children.unshift(newItem);
-          }
-        }
-        return cloneItem;
-      });
 
-      this.setState({ tree: [...newTree] });
-      db.collection("files").doc("lxK4KkEkcLPxOR0UZJotLlDo4Bs2").update({
-              "files":this.state.tree
-          })
-    
+  };
+
+  handleContextClick = (e, { action, name: id }) => {
+    //const { tree } = this.state;
+
+    switch (action) {
+      case "rename":
+     
+        break;
+      case "delete":
+       
+        break;
+      default:
     }
   };
 
@@ -141,116 +118,101 @@ close = () => {
          el.style.display= "none"
     }
   
-  componentDidMount() {
-    db.collection("files").doc("lxK4KkEkcLPxOR0UZJotLlDo4Bs2").onSnapshot( snap => {
-      this.setState({ tree: snap.data().files })
-      this.getUsedStockage()
-    })
-    
-  }
-  
-
-  getUsedStockage = () => {
-    var totalsize ="0 GB"
-    var size = 0
-    var listRef = storageRef.child('lxK4KkEkcLPxOR0UZJotLlDo4Bs2');
-
-// Find all the prefixes and items.
-    listRef.listAll()
-  .then((res) => {
-    res.items.forEach((itemRef) => {
-      // All the items under listRef.
-      itemRef.getMetadata().then((metadata) => {
-        size = size + metadata.size
-        var _size = size
-        var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
-        i=0;while(_size>900){_size/=1024;i++;}
-        totalsize = (Math.round(_size * 100) / 100) + ' ' + fSExt[i];
-        this.setState({ size: size, totalsize: totalsize })
-      }).finally(() => {
-       
-      })
-    });
-   
-    
-  }).catch((error) => {
-    // Uh-oh, an error occurred!
-  })
-}
-
   
   /*                    //////////////////////////    render fct ////////////////   */
     render() {
-      return (
-        <div>
-          <Context.Consumer >
-            {value => (
-              <div>
-                <div className="tree sidebar pl-1">
-                  <FontAwesomeIcon icon={faTimes} className="m-2 icon float-right p s" onClick={ this.close}/>  
-                    <img src="images/yfiles-logo-web.png" className="my-3 ml-0" alt="logo"/>
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="ml-4 mb-3 mt-1">
-                        <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
-                          <Icon title="New" icon={plus} className="mr-1"/>
-                                  Create New
-                        </DropdownToggle>
-                        <DropdownMenu style={{marginLeft:"-10px"}}>
-                      <DropdownItem  onClick={  e => this.addItem("folder" , value.currentObj )}><FontAwesomeIcon icon={faFolderPlus} className="mr-2 icon"/>New Folder</DropdownItem>
-                          <DropdownItem divider />    
-                          <DropdownItem><Icon title="New" icon={folderUpload} className="mr-2 " style={{color:"#4d4d4d"}} />Upload Folder</DropdownItem>
-                          <DropdownItem><FontAwesomeIcon icon={faFileUpload} className="mr-2 icon" />Upload File
-                             </DropdownItem>
-                           
-                         
+
+        return (
+            <div>       
+                {/*                           //////////////////////      sidebar //////////////////                     */}
+            <div className="tree sidebar pl-1">
+              <FontAwesomeIcon icon={faTimes} className="m-2 icon float-right p s" onClick={ this.close}/>  
+                    <img src="images/yfiles-logo-web.png" className="my-3 ml-0" />
+                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="ml-4 mb-4 mt-1">
+                      <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
+                        <Icon title="New" icon={plus} className="mr-1"/>
+                            Create New
+                      </DropdownToggle>
+                      <DropdownMenu style={{marginLeft:"-10px"}}>
+                        <DropdownItem><FontAwesomeIcon icon={faFolderPlus} className="mr-2 icon" />New Folder</DropdownItem>
+                        <DropdownItem divider />    
+                        <DropdownItem><Icon title="New" icon={folderUpload} className="mr-2 " style={{color:"#4d4d4d"}} />Upload Folder</DropdownItem>
+                        <DropdownItem><FontAwesomeIcon icon={faFileUpload} className="mr-2 icon"/>Upload File</DropdownItem> 
                         </DropdownMenu>
-                  </Dropdown>
-                  
-                  <div className="scroll-tree">
-                    <input type="file" id="file" onChange={value.handleInput} />  
-                    <Tree draggable={false} tree={this.state.tree} onChange={this.handleChange} renderNode={this.renderNode} />
-                  </div>
-                  <div className="text-center mt-3 mb-2">
-                      <h6>{this.state.totalsize + " used of 30MB"}</h6>
-                      <Progress value={this.state.size} max={30000000} />
-                    </div>
-                  
-                </div>
-                <ContextMenu id="FILE_CONTEXT_MENU">
-                  <MenuItem data={{ action: "rename" }} onClick={value.handleContextClick}>
-                    <FontAwesomeIcon icon={faPen} className="mr-2 icon" /> Rename </MenuItem>
-                  <MenuItem data={{ action: "delete" }} onClick={value.handleContextClick}>
-                    <FontAwesomeIcon icon={faTrashAlt} className="mr-2 icon" />  Delete </MenuItem>
-                  <MenuItem data={{ action: "move" }} onClick={value.handleContextClick}>
-                    <FontAwesomeIcon icon={faArrowsAlt} className="mr-2 icon" />  Move </MenuItem>
-                  <MenuItem divider />
-                  <MenuItem data={{ action: "download" }} onClick={value.handleContextClick}>
-                    <FontAwesomeIcon icon={faDownload} className="mr-2 icon" />Download </MenuItem>
-                  <MenuItem data={{ action: "share" }} onClick={value.handleContextClick}>
-                    <FontAwesomeIcon icon={faShare} className="mr-2 icon" />Share </MenuItem>
-                </ContextMenu>
-              </div>
-              )}
-          </Context.Consumer>
+                    </Dropdown>
+          
+      
+            
+          
+            <StrollableContainer  >
+             
+            <Tree
+                draggable={false}
+                tree={this.state.tree}
+                onChange={this.handleChange}
+                renderNode={this.renderNode}
+              />
+              
+  
+            </StrollableContainer>
+          
         </div>
-      )
+        {/*                           //////////////////////      json  //////////////////                     */}
+        
+         {/*                           //////////////////////      Contexte menu  //////////////////                     */}
+        <ContextMenu id="FILE_CONTEXT_MENU">
+          <MenuItem
+            data={{ action: "rename" }}
+            onClick={this.handleContextClick}
+          >
+            Rename
+          </MenuItem>
+          <MenuItem
+            data={{ action: "delete" }}
+            onClick={this.handleContextClick}
+          >
+            Delete
+          </MenuItem>
+           <MenuItem
+            data={{ action: "move" }}
+            onClick={this.handleContextClick}
+          >
+            Move
+          </MenuItem>
+          <MenuItem divider />
+          <MenuItem
+            data={{ action: "download" }}
+            onClick={this.handleContextClick}
+          >
+            Download
+          </MenuItem>
+          <MenuItem
+            data={{ action: "share" }}
+            onClick={this.handleContextClick}
+          >
+            Share
+          </MenuItem>
+        </ContextMenu>
+
+            </div>
+        )
     }
 
 
  handleChange = tree => {
-  /*  this.setState({
+    this.setState({
       tree: tree
     });
-   */
   };
 }
 
-/*const LightScrollbar = styled.div`
+const LightScrollbar = styled.div`
   width: 10px;
   background-color: #fff;
   opacity: 0.7;
   border-radius: 4px;
   margin: 4px;
-`;*/
+`;
 const Toolbar = styled.div`
   position: relative;
   display: flex;
