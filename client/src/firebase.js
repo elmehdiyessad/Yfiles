@@ -1,8 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-// require('firebase/auth')
-
-
+import 'firebase/firestore';
+import 'firebase/storage';
 
 // The SDK configuration from Firebase
 const app = firebase.initializeApp({
@@ -14,9 +13,8 @@ const app = firebase.initializeApp({
     appId: process.env.REACT_APP_FIREBASE_APP_ID
 })
 
-
-
-export const auth = app.auth()
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
-export default app
+const db = firebase.firestore()
+const auth = app.auth()
+const storage = firebase.storage()
+const storageRef = storage.ref();
+export { auth, db, storage, storageRef}
