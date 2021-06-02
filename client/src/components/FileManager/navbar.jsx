@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCog , faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import "./style/styles.css"
 import Context from '../context/context'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import {auth} from '../../firebase'
 export default class NavBar extends Component {
     render() {
         return (
@@ -29,7 +30,17 @@ export default class NavBar extends Component {
                                     <DropdownMenu className="d">
                                         <DropdownItem  className="d-inline-flex pl-2"> <Avatar alt="profil" src="images/user.png"  className="mr-2"/> <h6 className="mt-auto">Username</h6> </DropdownItem>
                                         <DropdownItem  ><Link to="/profil" className="text-decoration-none"><FontAwesomeIcon icon={faUserCog} className="mr-2 icon"/> Profil </Link></DropdownItem>
-                                        <DropdownItem  > <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 icon"/> Logout</DropdownItem>
+                                    <DropdownItem onClick={(e) => {
+                                        e.preventDefault();
+                                        auth.signOut()
+                                            .then(() => {
+                                                window.location.reload();
+                                            })
+                                            .catch(error => {
+                                                console.log("ERROR", error.message)
+                                            })
+                                    }}
+                                    > <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 icon" /> Logout</DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
                             </div>

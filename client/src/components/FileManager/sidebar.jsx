@@ -20,7 +20,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem , Progress , Butto
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload , faFolderPlus , faTimes , faPen , faTrashAlt , faShare , faDownload , faArrowsAlt , faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import Context from '../context/context'
-import { db, storage, storageRef } from '../../firebase'
+import { db, storage, storageRef, auth } from '../../firebase'
 
 // add deepdash to lodash
 deepdash(_);
@@ -41,7 +41,8 @@ export default class Sidebar extends Component {
     tree: {},
     collapsed: false,
     size: 0,
-    totalsize: "0 B"
+    totalsize: "0 B",
+    user:{}
   };
   
   toggle = () => {
@@ -96,19 +97,23 @@ export default class Sidebar extends Component {
 
 
   addItem = (itemType, active) => {
-     
+    if (window.innerWidth <= 768 && document.querySelector(".sidebar").style.display === "block") {
+                            document.querySelector(".button-menu").style.display = "block"
+                            document.querySelector(".sidebar").style.display= "none"
+                            }
     const { tree } = this.state;
     const response = prompt("New folder name", "");
     
     if (response !== null || response !== undefined) {
       var date = new Date()
-      var mounth=(date.getMonth()+1 <10 ) ? `0${date.getMonth()+1}`:date.getMonth()+1
+      var mounth = (date.getMonth() + 1 < 10) ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+      var day = (date.getDate() < 10) ? `0${date.getDate()}` : date.getDate()
       const newItem = {
         id: `root-${Date.now()}`,
-        creationdate: `${date.getDate()}/${mounth}/${date.getFullYear()}`,
-        module: ( response === "" ) ?  `New ${itemType}` : response ,
+        creationdate: `${day}/${mounth}/${date.getFullYear()}`,
+        module: ( response === "" || !response) ?  `New folder` : response ,
         children: [],
-        collapsed: false,
+        collapsed: true,
         size: "-",
         type: "folder"
       }
@@ -125,7 +130,7 @@ export default class Sidebar extends Component {
       });
 
       this.setState({ tree: [...newTree] });
-      db.collection("files").doc("lxK4KkEkcLPxOR0UZJotLlDo4Bs2").update({
+      db.collection("files").doc(this.state.user.uid).update({
               "files":this.state.tree
           })
     
@@ -136,24 +141,32 @@ export default class Sidebar extends Component {
     this.setState(({ collapsed }) => ({ collapsed: !collapsed }));
   };
 
-close = () => {
-        var el = document.querySelector(".sidebar")
-         el.style.display= "none"
-    }
+  close = () => {
+    var el = document.querySelector(".sidebar")
+    el.style.display = "none"
+    var btn = document.querySelector(".button-menu")
+    btn.style.display="block"
+  }
   
   componentDidMount() {
-    db.collection("files").doc("lxK4KkEkcLPxOR0UZJotLlDo4Bs2").onSnapshot( snap => {
-      this.setState({ tree: snap.data().files })
-      this.getUsedStockage()
+    auth.onAuthStateChanged((user) => { 
+    if (user === null) {
+      //history.push('/login')
+    } else {
+      this.setState({ user: user })
+      db.collection("files").doc(this.state.user.uid).onSnapshot(snap => {
+          this.setState({ tree: snap.data().files })
+          this.getUsedStockage()
+      })
+    }
     })
-    
   }
   
 
   getUsedStockage = () => {
     var totalsize ="0 GB"
     var size = 0
-    var listRef = storageRef.child('lxK4KkEkcLPxOR0UZJotLlDo4Bs2');
+    var listRef = storageRef.child(this.state.user.uid);
 
 // Find all the prefixes and items.
     listRef.listAll()
@@ -189,24 +202,14 @@ close = () => {
                 <div className="tree sidebar pl-1">
                   <FontAwesomeIcon icon={faTimes} className="m-2 icon float-right p s" onClick={ this.close}/>  
                     <img src="images/yfiles-logo-web.png" className="my-3 ml-0" alt="logo"/>
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="ml-4 mb-3 mt-1">
-                        <DropdownToggle caret  style={{backgroundColor:"#223B62"}}>
-                          <Icon title="New" icon={plus} className="mr-1"/>
-                                  Create New
-                        </DropdownToggle>
-                        <DropdownMenu style={{marginLeft:"-10px"}}>
-                      <DropdownItem  onClick={  e => this.addItem("folder" , value.currentObj )}><FontAwesomeIcon icon={faFolderPlus} className="mr-2 icon"/>New Folder</DropdownItem>
-                          <DropdownItem divider />    
-                          <DropdownItem><Icon title="New" icon={folderUpload} className="mr-2 " style={{color:"#4d4d4d"}} />Upload Folder</DropdownItem>
-                          <DropdownItem><FontAwesomeIcon icon={faFileUpload} className="mr-2 icon" />Upload File
-                             </DropdownItem>
-                           
-                         
-                        </DropdownMenu>
-                  </Dropdown>
+                    <div  className="ml-1 mb-3 mt-1 d-inline-flex" >                
+                      <Button onClick={  e => this.addItem("folder" , value.currentObj )} className="mx-1 d-inline-flex"  style={{backgroundColor:"#223B62"}}><FontAwesomeIcon icon={faFolderPlus} className="mr-2 icon text-white"/> <span style={{fontSize:"10px"}}>New Folder</span></Button>                    
+                    {/**   <Button style={{backgroundColor:"#223B62"}}><Icon title="New" icon={folderUpload} className="mr-2 " style={{color:"#4d4d4d"}} />Upload Folder</Button>*/}
+                    <Button style={{ backgroundColor: "#223B62" }} className="mx-1 d-inline-flex" onClick={() => { document.getElementById('file').click() }} ><FontAwesomeIcon icon={faFileUpload} className="mr-2 icon text-white" /><input type="file" id="file" onChange={value.handleInput} hidden/> <span style={{fontSize:"10px"}}>Upload File</span> </Button>
+                   </div>
                   
                   <div className="scroll-tree">
-                    <input type="file" id="file" onChange={value.handleInput} />  
+                     
                     <Tree draggable={false} tree={this.state.tree} onChange={this.handleChange} renderNode={this.renderNode} />
                   </div>
                   <div className="text-center mt-3 mb-2">
