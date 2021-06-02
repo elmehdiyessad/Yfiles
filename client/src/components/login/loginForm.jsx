@@ -3,6 +3,9 @@ import { auth, googleAuthProvider, FacebookAuthProvider } from '../../firebase'
 import { Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
+// import { fa } from '@fortawesome/free-solid-svg-icons'
+
+
 
 
 export default function LoginForm() {

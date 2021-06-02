@@ -12,9 +12,9 @@ export default function Menu() {
             <Navbar.Collapse id="navbarScroll">
                 <Nav className="mr-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarscroll="true">
                 <Nav.Link href="#">Home</Nav.Link>
-                <Nav.Link href="#">About</Nav.Link>
+                <Nav.Link href="#services">Services</Nav.Link>
                 <Nav.Link href="#pricing">Pricing</Nav.Link>
-                <Nav.Link href="#">Contact</Nav.Link>
+                <Nav.Link href="#start-now-section">Get started</Nav.Link>
                 </Nav>
                 
                 <Form className="d-flex mr-2 justify-content-end">

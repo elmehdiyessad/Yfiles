@@ -55,13 +55,21 @@ body{
   background-color: linear-gradient(#FFF, #FF5757);
   background-size: cover;
 }
-.section{
+#services .section{
   width: 33.33%;
   height: 350px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 40px 70px;
+  padding: 40px 60px;
+}
+#sections .section{
+  width: 33.33%;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 40px 60px;
 }
 .section h1{
   color: black;
@@ -80,7 +88,6 @@ body{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
   min-height: 200px;
   margin: 150px 0px;
 }
