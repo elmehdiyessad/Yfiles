@@ -3,8 +3,10 @@ import Context from './context';
 import _ from "lodash";
 import deepdash from "deepdash";
 import { db , storageRef , auth} from '../../firebase'
-
+import JSZIP from "jszip"
+import FileSaver from 'file-saver';
 deepdash(_);
+ 
 export default class Provider extends Component {
     constructor(props) {
         super(props)
@@ -226,6 +228,7 @@ deletemove = (o, id , path) => { //o=object tree , id=string
             leaf: true,
             size: exactSize,
             type: this.gettype(file.type),
+            contentType: file.type,
             url: fileurl,
             path: filepath,
          }
@@ -255,15 +258,54 @@ deletemove = (o, id , path) => { //o=object tree , id=string
             "files":this.state.tree
         })
     }
+ 
+async getFileFromUrl (url, name, type) {
+    const response = await fetch(url, {
+        mode: 'no-cors',
+      responseType: 'blob',   
+  });
+  const data = await response.blob();
+  return new File([data], name, {
+    type: type,
+  });
+    }
+    async findfile(folder) {
+    var zip = JSZIP()
+    let array = []
+    let r = await _.mapDeep(folder, (i) => {
+                    if (i.path) {          
+                            this.getFileFromUrl(i.url , i.module, i.contentType).then(f => {
+                               // console.log(f); 
+                               array.push(f) 
+                               zip.file(i.module, f)
+                            }).then(() => {
+                                zip.generateAsync({type:"blob"}).then(function(content) {             
+                               FileSaver.saveAs(content, folder.module);
+                            });
+                            })
+                        
+                    }
+              },
+             {
+                 childrenPath: "children",
+                 
+        })
+        return array
 
-
-  download = (itemtype, item) => {
+}
+    download = (itemtype, item) => {
     if (itemtype === "file") {
         window.open(item.url)                     
       }
       if (itemtype === "folder") {
-          console.log("download folder");
-      }
+                 
+          this.findfile(item).then((array) => {
+            console.log(array.length);
+          })
+         
+         
+        }
+        
     }
 
     move = (id, folder) => {

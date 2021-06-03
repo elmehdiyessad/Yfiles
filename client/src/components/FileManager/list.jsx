@@ -104,7 +104,8 @@ export default class List extends Component {
                      <div className="scr">
                             <ListElement tab={value.currentfolder} settab={value.setCurrentFolder} s={value.s} iss={value.iss} menu={value.handleContextClick}
                                 itemclick={value.itemclick}
-                        />
+                            />
+                            <img src="" id="imgtest"></img>
                      </div>       
                         <Toast isOpen={value.show} className="position-fixed bottom-0 end-0 m-3">
                             <ToastHeader toggle={value.toggle}>Importing file</ToastHeader>
