@@ -30,7 +30,8 @@ class ListElement extends Component {
                             <div className="col-2 r inflex">{item.creationdate}</div>
                         </ContextMenuTrigger>
                     </div>
-                )))
+                ))
+            )
                 
             
             else return (

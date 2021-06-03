@@ -6,8 +6,9 @@ import {
     faTrashAlt, faShare, faDownload, faArrowsAlt, faEye
 } from '@fortawesome/free-solid-svg-icons'
 import Context from '../context/context'
-import { Button, Toast, ToastBody, ToastHeader, Progress, DropdownItem, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Toast, ToastBody, ToastHeader, Progress, DropdownItem, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import FilePreviewer from 'react-file-previewer';
+import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 export default class List extends Component {
   
     state = {
@@ -16,13 +17,40 @@ export default class List extends Component {
     toggle = () => { this.setState({ show: !this.state.show }) }
     
     componentDidMount() {
-        const concernedElement = document.querySelector(".drp")
         document.addEventListener("mousedown", (event) => {
         if (event.target.matches(".drp , .drp-menu , .drp *" )) {
           
         } else {
             this.setState({show:false})
         }});
+    }
+
+    renderpreview = (type, url) => {
+        if (type === "audio" || type === "video") {
+            return <div>
+                <video width="100%" height="100%" controls >
+                <source src={url} />
+                </video>
+                <ModalFooter>
+                    <Button onClick={(e) => { window.open(url) }}>Download</Button>
+                </ModalFooter>
+            </div>
+        }
+        if (type === "image") {
+            return<div>
+                <img src={url} style={{ maxHeight: "100%", maxWidth: "100%" }} />
+                <ModalFooter>
+                    <Button onClick={(e) => { window.open(url) }}>Download</Button>
+                </ModalFooter>
+            </div>
+        }
+        else return <div>
+            <h4 className="my-3 mx-auto">No preview available</h4>
+            <img src="images/Image-not-found.png" style={{height:"50%" , width:"50%" }} className="d-block mx-auto my-3" />
+            <ModalFooter>
+                <Button onClick={(e) => { window.open(url) }}>Download</Button>
+            </ModalFooter>
+        </div>
     }
     render() {
         return (
@@ -85,13 +113,55 @@ export default class List extends Component {
                             </ToastBody>
                         </Toast>
 
-                      {  <Modal isOpen={value.modalpreview} toggle={value.toggleviwer}>
+                       <Modal isOpen={value.modalpreview} toggle={value.toggleviwer}>
+                           <ModalHeader>Preview</ModalHeader>
                             <ModalBody>
-                            <FilePreviewer file={{
-                                    url: value.itemclicled ? value.itemclicled.url :"https://static.wikia.nocookie.net/animated_inanimate_battle/images/a/a3/Image-not-found.png/revision/latest?cb=20200723230444"
-                                }}
-                            />
+                                {
+                                    this.renderpreview(value.itemclicled.type, value.itemclicled.url)
+                                    
+                                }
+                                
                             </ModalBody>
+                        </Modal>
+                        
+                        {  <Modal
+                            isOpen={value.modalmove}
+                            //toggle={value.toggleviwer}
+                        >
+                            <ModalHeader>Choose Folder</ModalHeader>
+                            <ModalBody>
+                                <div className="pt-2 pb-3 pl-0 border-bottom  p row " onClick={() => value.navigatemove(value.tree) }
+                                                 style={{ with: "100%" }}
+                                               // onClick={ }
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title= "root" 
+                                    >
+                                        <div className="col-6 d-inline-flex"><FontAwesomeIcon icon={ faFolder } className="mr-2 icon" />
+                                                {value.tree.module}</div>
+                                        
+                                    </div> 
+
+                                {
+                                    
+                                    value.movefolders.children.length === 0 ? <h4 className="m-3 float-left">No folder found</h4>
+                                :
+                                    value.movefolders.children.map((item, i) => (
+                                    (item.hasOwnProperty("children")) ?
+                                    <div className="py-3 pl-4 border-bottom  p row "
+                                                onClick={() => value.navigatemove(item) }
+                                                key={item.id} style={{ with: "100%" }}
+                                               // onClick={ }
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title={item.hasOwnProperty("children") ? "Open" : ""}
+                                    >
+                                        <div className="col-6 d-inline-flex"><FontAwesomeIcon icon={
+                                                item.hasOwnProperty("children") ? faFolder : faFileAlt} className="mr-2 icon" />
+                                                {item.module}</div>
+                                        
+                                    </div> : <> </>
+                                ))
+                                }
+                                
+                            </ModalBody>
+                            <ModalFooter> <Button className=" float-end" onClick={ value.moveitem}>Move to {value.movefolders.module }</Button></ModalFooter>
                         </Modal> }
                 </div>
                            )}
