@@ -20,4 +20,4 @@ const storageRef = storage.ref();
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
-export { auth, db, storage, storageRef , googleAuthProvider , FacebookAuthProvider , app}
+export { auth, db, storage, storageRef , googleAuthProvider , FacebookAuthProvider , app, firebase}

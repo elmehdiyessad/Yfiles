@@ -1,47 +1,122 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { auth } from '../../firebase'
+import { useHistory } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
+import '../../css/media.css'
 
-export default function sidebar() {
+
+export default function Sidebar(props) {
+
+    const [myvariable, setMyvariable] = useState("informations")
+
+
+    // myFunction() this function to handle the change variable when the user click on the href link in the sidebar
+    function myFunction(e){
+        console.log(e.target)
+        e.preventDefault()
+        if (e.target.name === "informations"){
+            setMyvariable("informations")
+        }else{
+            setMyvariable("change-password")
+        }
+        const onTrigger = () => {
+            props.parentCallback(myvariable)
+        }
+        onTrigger()
+    }
+
+
+    // delete user
+    function handleDeleteUserAccount(e){
+    e.preventDefault()
+
+    const user = auth.currentUser
+    var r = window.confirm("You sure that you want delete your account, you risk to loose all your folders and files !")
+    if(r === true){
+        user.delete().then(function() {
+        // User deleted.
+            
+        }).catch(function(error) {
+        // An error happened.
+            console.log(error)
+            alert("Please try to log out and login in again in order to do this operation")
+        });
+    }
+        
+    }
+
+    let history = useHistory()
+    // handle Log Out
+    function handleLogOut(e){
+        e.preventDefault()
+        
+        auth.signOut()
+            .then(() => {
+                history.push('/login')
+            })
+            .catch(error => {
+                console.log("ERROR", error.message)
+            })
+    }
+
+
 
     return (
         <>
-        <div className="sidebar-sticky mt-5" style={{ width: "200px", height: "100%" }}>
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <a className="nav-link active" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                  Home page <span className="sr-only">(current)</span>
+        <div id="sidebar" className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sticky-top" style={{width: "280px" }}>
+            <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg className="bi me-2" width="40" height="32"></svg>
+            <span className="fs-4">Profil</span>
+            </a>
+            <hr />
+            <ul className="nav nav-pills flex-column mb-auto">
+            <li className="nav-item">
+                <a href="#" className="nav-link text-white" aria-current="page" name="informations" onClick={ myFunction }>
+                <svg className="bi me-2" width="16" height="16"></svg>
+                Dashboard
                 </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                  File manager
+            </li>
+            <li>
+                <a href="/home" className="nav-link text-white">
+                <svg className="bi me-2" width="16" height="16"></svg>
+                File manager
                 </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                  change password
+            </li>
+            <li>
+                <a href="#" className="nav-link text-white" name="change-password" onClick={ myFunction }>
+                <svg className="bi me-2" width="16" height="16"></svg>
+                Change password
                 </a>
-              </li>
-              
+            </li>
+            <li>
+                <a href="#" className="nav-link text-white" onClick={ handleDeleteUserAccount }>
+                <svg className="bi me-2" width="16" height="16"></svg>
+                Delete account
+                </a>
+            </li>
+            <li>
+                <a href="#" className="nav-link text-white active" onClick={ handleLogOut }>
+                <svg className="bi me-2" width="16" height="16"></svg>
+                Log out &ensp; <FontAwesomeIcon className="mr-2" icon={faArrowAltCircleRight} />
+                </a>
+            </li>
             </ul>
-
-            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Account</span>
-              <a className="d-flex align-items-center text-muted" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-              </a>
-            </h6>
-            <ul className="nav flex-column mb-2">
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                  Delete account
-                </a>
-              </li>
+            <hr />
+            <div className="dropdown">
+            <a href="#" style={{ paddingTop: "310px" }} className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src={ props.photoUrl } alt="" width="50" height="50" className="rounded-circle me-2" />
+                <strong>{ props.username }</strong>
+            </a>
+            <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a className="dropdown-item" href="#">New project...</a></li>
+                <li><a className="dropdown-item" href="#">Settings</a></li>
+                <li><a className="dropdown-item" href="#">Profile</a></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><a className="dropdown-item" href="#">Sign out</a></li>
             </ul>
-          </div>
+            </div>
+        </div>
         </>
     )
 }

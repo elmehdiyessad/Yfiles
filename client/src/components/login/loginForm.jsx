@@ -3,9 +3,6 @@ import { auth, googleAuthProvider, FacebookAuthProvider } from '../../firebase'
 import { Link, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
-// import { fa } from '@fortawesome/free-solid-svg-icons'
-
-
 
 
 export default function LoginForm() {
@@ -22,7 +19,7 @@ export default function LoginForm() {
     let history = useHistory();
 
     // Login With Facebook Params ********
-    // FacebookAuthProvider.addScope('login_with_facebook') *********
+    // FacebookAuthProvider.addScope('login_with_facebook') ****
     auth.languageCode = 'fr';
     FacebookAuthProvider.setCustomParameters({
         'display': 'popup'
@@ -115,8 +112,8 @@ export default function LoginForm() {
 
     return (
         <form className="form-signin" onSubmit={ handleSubmit }>
-        <p className="text-center"><img className="mb-4" src="images/yfiles-logo.png" align="center" alt="logo" width="250" /></p>
-        <h1 className="h3 mb-3 font-weight-normal text-center text-white">Sign in</h1>
+        <p className="text-center"><img src="images/yfiles-logo.png" align="center" alt="yfiles logo" width="250" /></p>
+        <h1 className="h3 mb-2 font-weight-normal text-center text-white">Sign in</h1>
 
         {/* Alerts */}
         <div className={ alertStyleError } role="alert"><strong>Warning !</strong> { error }</div>   
@@ -151,8 +148,8 @@ export default function LoginForm() {
         className="btn btn-block btn-dark">
         Login
         </button>
-        <p className="text-center mt-2"><Link to="/signup" className="text-light">Create an Account</Link></p>
-        <p className="mt-5 mb-3 text-white text-center"><small>&copy; Y FILES 2020-2021</small></p>
+        <a href="/signup" className="btn btn-outline-light btn-block mt-2" role="button">Create an account</a>
+        <p className="text-center mt-2"><a href="resetpassword" className="text-primary" target="_blank">Forget my password ?</a></p>
     </form>
     )
 }

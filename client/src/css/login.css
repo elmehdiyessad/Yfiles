@@ -16,3 +16,11 @@
     color: #525252;
     width: 100%;
 }
+
+#btn-facebook:hover{
+    background-color: #2259c9;
+}
+
+#btn-google:hover{
+    background-color: #cecdcd;
+}

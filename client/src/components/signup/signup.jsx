@@ -7,7 +7,6 @@ import '../../css/global.css'
 import '../../css/signup.css'
 
 
-
 function Signup() {
 
     // use History | redirect user to profil page if he is login
