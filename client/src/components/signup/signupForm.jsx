@@ -66,7 +66,7 @@ function SignupForm() {
         <div>
             
             <form onSubmit={ handleSubmit }>
-                <p className="text-center"><img className="mt-3" src="images/yfiles-logo.png" align="center" alt="logo" width="250" /></p>
+                <p className="text-center"><img className="mt-1" src="images/yfiles-logo.png" align="center" alt="logo" width="250" /></p>
                 <h1 className="h3 mb-3 font-weight-normal text-light text-center">Create an account</h1>
 
                 {/* Alerts */}

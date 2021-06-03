@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { auth } from '../../firebase'
 import LoginForm from './loginForm'
-import { useHistory } from "react-router-dom";
-import '../../css/global.css';
-import '../../css/login.css';
+import { useHistory } from "react-router-dom"
+import '../../css/global.css'
+import '../../css/login.css'
+
 
 
 export default function Signin() {
