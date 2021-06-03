@@ -46,10 +46,6 @@ function handleSubmit(e){
                         setAlertStyleError( "alert alert-danger d-none" )
                     }).catch(function(error) {
                         console.log("ERROR updatePassword !", error.code)
-                        // if(error.code == "auth/requires-recent-login"){
-                        //     setError( "Your old password is wrong ! Please enter the right password" )
-                        //     setAlertStyleError( "alert alert-danger" )
-                        // }
                     });
                 }).catch(function(error) {
                     console.log("ERROR reauthenticateWithCredential !", error.code)

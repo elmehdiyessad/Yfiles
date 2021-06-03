@@ -11,8 +11,6 @@ export default function Sidebar(props) {
     const [myvariable, setMyvariable] = useState("informations")
     
 
-
-
     useEffect(() => {
         // handleResize
         window.addEventListener("resize", () => {

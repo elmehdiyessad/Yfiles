@@ -7,7 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import Context from '../context/context'
 import { Button, Toast, ToastBody, ToastHeader, Progress, DropdownItem, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import FilePreviewer from 'react-file-previewer';
 import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 export default class List extends Component {
   
