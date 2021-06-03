@@ -183,12 +183,9 @@ export default class Sidebar extends Component {
         i=0;while(_size>900){_size/=1024;i++;}
         totalsize = (Math.round(_size * 100) / 100) + ' ' + fSExt[i];
         this.setState({ size: size, totalsize: totalsize })
-      }).finally(() => {
-       
       })
     });
-   
-    
+       
   }).catch((error) => {
     // Uh-oh, an error occurred!
   })

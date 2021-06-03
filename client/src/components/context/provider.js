@@ -33,12 +33,41 @@ export default class Provider extends Component {
             },
             modalmove: false,
             IdItemtoMove: "",
-            user:{uid:""}
+            user: { uid: "" },
+            usedtorage: 0
         };
        this.deleteFromTree = this.deleteFromTree.bind(this)
     }
 
  
+    
+  getUsedStockage = () => {
+    var size = 0
+    var listRef = storageRef.child(this.state.user.uid);
+
+// Find all the prefixes and items.
+    listRef.listAll()
+      .then((res) => {
+        if (res.items.length === 0) {
+          this.setState({ size: 0, totalsize: "0 B" })
+          return
+     }
+    res.items.forEach((itemRef) => {
+      // All the items under listRef.
+      itemRef.getMetadata().then((metadata) => {
+        size = size + metadata.size
+        var _size = size
+        var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
+        i=0;while(_size>900){_size/=1024;i++;}
+        var totalsize = (Math.round(_size * 100) / 100) 
+        this.setState({ usedtorage: totalsize  })
+      })
+    });
+       
+  }).catch((error) => {
+    // Uh-oh, an error occurred!
+  })
+}
     componentDidMount() {
         auth.onAuthStateChanged((user) => {
         if(user == null){
@@ -59,7 +88,8 @@ export default class Provider extends Component {
             })
             }
             if (docSnapshot.exists) { 
-                db.collection("files").doc(this.state.user.uid).onSnapshot( snap => {
+                db.collection("files").doc(this.state.user.uid).onSnapshot(snap => {
+                    this.getUsedStockage()
                     this.setState({
                         tree: snap.data().files,
                         movefolders: snap.data().files
@@ -212,6 +242,7 @@ deletemove = (o, id , path) => { //o=object tree , id=string
 }
    addItem = (active , file, filepath , fileurl) => {
      
+       
     const tree  = this.state.tree;
 
        var date = new Date()
@@ -248,7 +279,7 @@ deletemove = (o, id , path) => { //o=object tree , id=string
       db.collection("files").doc(this.state.user.uid).update({
               "files":this.state.tree
           })
-    
+      if(this.state.progress === 100) this.setState({ show: false })
     
   };
  
@@ -374,6 +405,8 @@ async getFileFromUrl (url, name, type) {
                         }
                         if (e.target.files[0]) {                       
                             let file = e.target.files[0];
+                            if (file.size + this.state.usedtorage > 30000000) { alert("Insufficient storage"); console.log(file.size + this.state.usedtorage)}
+                            if(file.size + this.state.usedtorage <= 30000000){
                             var uploadref = storageRef.child(`${this.state.user.uid}/` + file.name)
                                 uploadref.getDownloadURL()
                                 .catch((error) => {
@@ -398,7 +431,7 @@ async getFileFromUrl (url, name, type) {
                                         
                                     }
                                 })
-                           
+                           }
                         }                
                     },
                     setCurrentFolder: id => {
