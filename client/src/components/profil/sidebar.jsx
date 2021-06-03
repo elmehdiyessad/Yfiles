@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { auth } from '../../firebase'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
-import '../../css/media.css'
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Sidebar(props) {
 
     const [myvariable, setMyvariable] = useState("informations")
+    
+
+
+
+    useEffect(() => {
+        // handleResize
+        window.addEventListener("resize", () => {
+            var ww = window.innerWidth
+            if(ww < 640){
+                document.querySelector('#sidebar').style.display = "none"
+                document.querySelector('#toggle-menu-btn').style.display = "block"
+                console.log("moins 640")
+            }else{
+                document.querySelector('#sidebar').style.display = "block"
+                document.querySelector('#toggle-menu-btn').style.display = "none"
+            }
+        }, true)
+    }, [])
+
+
+
 
 
     // myFunction() this function to handle the change variable when the user click on the href link in the sidebar
@@ -30,7 +51,6 @@ export default function Sidebar(props) {
     // delete user
     function handleDeleteUserAccount(e){
     e.preventDefault()
-
     const user = auth.currentUser
     var r = window.confirm("You sure that you want delete your account, you risk to loose all your folders and files !")
     if(r === true){
@@ -43,7 +63,6 @@ export default function Sidebar(props) {
             alert("Please try to log out and login in again in order to do this operation")
         });
     }
-        
     }
 
     let history = useHistory()
@@ -61,13 +80,19 @@ export default function Sidebar(props) {
     }
 
 
+    function handleCloseSidebar(){
+        document.querySelector('#sidebar').style.display = "none"
+        document.querySelector('#toggle-menu-btn').style.display = "block"
+    }
+
+
 
     return (
-        <>
-        <div id="sidebar" className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sticky-top" style={{width: "280px" }}>
-            <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <div id="sidebar">
+        <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sticky-top" style={{width: "280px" }}>
+            <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg className="bi me-2" width="40" height="32"></svg>
-            <span className="fs-4">Profil</span>
+            <span className="fs-4" onClick={ handleCloseSidebar }><FontAwesomeIcon className="mr-2" icon={faLongArrowAltLeft} /> Profil</span>
             </a>
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
@@ -117,6 +142,6 @@ export default function Sidebar(props) {
             </ul>
             </div>
         </div>
-        </>
+        </div>
     )
 }

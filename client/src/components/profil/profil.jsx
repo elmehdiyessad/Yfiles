@@ -8,7 +8,9 @@ import UserInfos from './userInfos'
 import '../../css/media.css'
 import '../../css/profil.css'
 
+
 export default function Profil() {
+    
 
     // state
     const [uid, setUid] = useState("")
@@ -16,6 +18,7 @@ export default function Profil() {
     const [email, setEmail] = useState("")
     const [photoUrl, setPhotoUrl] = useState("")
     const [emailVerified, setEmailVerified] = useState("")
+    const [toggleState, setToggleState] = useState(true)
 
     const [url, setUrl] = useState("informations")
 
@@ -41,22 +44,34 @@ export default function Profil() {
     })
     
     // handleTest *****
-    function handleTest(){
-        if(url === 'informations'){
-            console.log('URL is : informations')
-        }else{
-            console.log('URL is : change-password')
-        }
-        // console.log('URL', url)
-    }
+    // function handleTest(){
+    //     if(url === 'informations'){
+    //         console.log('URL is : informations')
+    //     }else{
+    //         console.log('URL is : change-password')
+    //     }
+    //     // console.log('URL', url)
+    // }
 
-    // function to have state from child *****
+    // function to have state from child sidebar *****
     function handleSomething(childData) {
         return setUrl(childData)
     }
         
     
-
+    // handleToggelButton *****************
+    function handleToggelButton(){
+        setToggleState(toggleState => !toggleState)
+        console.log(toggleState)
+        if(toggleState === true){
+            document.querySelector('#sidebar').style.display = "block"
+            document.querySelector('#toggle-menu-btn').style.display = "none"
+        }else{
+            document.querySelector('#sidebar').style.display = "none"
+            document.querySelector('#toggle-menu-btn').style.display = "block"
+        }
+        
+    }
 
 
     return (
@@ -64,7 +79,7 @@ export default function Profil() {
             <div className="d-flex">
                 <div className="p-2 flex-shrink-1"><Sidebar parentCallback={ handleSomething } username={ username } photoUrl={ photoUrl } /></div>
                 <div className="container">
-                    <a href="#" id="toggle-menu-btn" role="button"><img src="images/toggle-btn.png" width="45px" alt="" /></a>
+                    <a href="#" id="toggle-menu-btn" onClick={ handleToggelButton } role="button"><img src="images/toggle-btn.png" width="45px" alt="" /></a>
                     <h1 className="mt-4">Welcome { username } </h1>
                     <hr />
 
