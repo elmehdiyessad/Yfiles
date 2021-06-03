@@ -155,7 +155,7 @@ export default class Sidebar extends Component {
       this.setState({ user: user })
       db.collection("files").doc(this.state.user.uid).onSnapshot(snap => {
           this.setState({ tree: snap.data().files })
-          this.getUsedStockage()
+        this.getUsedStockage()
       })
     }
     })
@@ -169,7 +169,11 @@ export default class Sidebar extends Component {
 
 // Find all the prefixes and items.
     listRef.listAll()
-  .then((res) => {
+      .then((res) => {
+        if (res.items.length === 0) {
+          this.setState({ size: 0, totalsize: "0 B" })
+          return
+     }
     res.items.forEach((itemRef) => {
       // All the items under listRef.
       itemRef.getMetadata().then((metadata) => {
@@ -179,12 +183,9 @@ export default class Sidebar extends Component {
         i=0;while(_size>900){_size/=1024;i++;}
         totalsize = (Math.round(_size * 100) / 100) + ' ' + fSExt[i];
         this.setState({ size: size, totalsize: totalsize })
-      }).finally(() => {
-       
       })
     });
-   
-    
+       
   }).catch((error) => {
     // Uh-oh, an error occurred!
   })
