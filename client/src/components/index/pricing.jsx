@@ -12,20 +12,23 @@ export default function pricing() {
                 <h4>0$</h4>
                 <div className="cercle-design"></div>
                 <em>PER MONTH</em>
+                <em className="text-dark">1 Go storage</em>
                 <button className="btn btn-danger mt-5">See plan <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></button>
             </div>
             <div id="card-gold" className="card">
                 <img src="images/star.png" className="center" width="50px" alt="gold-pricing-star" />
                 <h2 className="mb-5 mt-3">GOLD</h2>
-                <h4>50$</h4>
+                <h4>10$</h4>
                 <em>PER MONTH</em>
+                <em className="text-dark">100 Go storage</em>
                 <button className="btn btn-danger mt-5">See plan <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></button>
             </div>
             <div id="card-pro" className="card">
                 <h2 className="mb-5">PRO</h2>
-                <h4>20$</h4>
+                <h4>3.75$</h4>
                 
                 <em>PER MONTH</em>
+                <em className="text-dark">30 Go storage</em>
                 <button className="btn btn-danger mt-5">See plan <FontAwesomeIcon className="ml-2" icon={faArrowRight} /></button>
             </div>
         </div>
