@@ -4,7 +4,6 @@ import Icon from "react-icons-kit"
 import { folder } from "react-icons-kit/feather/folder"
 import { file } from "react-icons-kit/feather/file"
 import {folderOpenO} from 'react-icons-kit/fa/folderOpenO'
-import { folderUpload } from 'react-icons-kit/icomoon/folderUpload'
 import {folderPlus} from 'react-icons-kit/feather/folderPlus'
 import {plus} from 'react-icons-kit/feather/plus'
 import styled from "styled-components";
@@ -16,11 +15,11 @@ import "./style/styles.css"
 import "react-ui-tree/dist/react-ui-tree.css"
 import "./style/theme.css"
 import "./style/react-contextmenu.css"
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem , Progress , Button, Toast, ToastBody, ToastHeader } from 'reactstrap'
+import {  Progress , Button } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileUpload , faFolderPlus , faTimes , faPen , faTrashAlt , faShare , faDownload , faArrowsAlt , faFolderOpen} from '@fortawesome/free-solid-svg-icons'
+import { faFileUpload , faFolderPlus , faTimes , faPen , faTrashAlt , faShare , faDownload , faArrowsAlt } from '@fortawesome/free-solid-svg-icons'
 import Context from '../context/context'
-import { db, storage, storageRef, auth } from '../../firebase'
+import { db, storageRef, auth } from '../../firebase'
 
 // add deepdash to lodash
 deepdash(_);
