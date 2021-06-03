@@ -10,7 +10,7 @@ import { SettingsRemoteOutlined } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom'
 import {auth} from '../../firebase'
 
-var user=null
+var user={}
 auth.onAuthStateChanged((u) => {
     if (u !== null) {
         user=u
