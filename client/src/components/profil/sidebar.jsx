@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { auth } from '../../firebase'
+import { auth, storageRef, db } from '../../firebase'
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons'
@@ -45,6 +45,32 @@ export default function Sidebar(props) {
         onTrigger()
     }
 
+    // delete files
+    function deleteallfiles() {
+        const user = auth.currentUser
+        var listRef = storageRef.child(user.uid);
+        listRef.listAll()
+          .then((res) => {
+        res.items.forEach((itemRef) => {
+          // All the items under listRef.
+          itemRef.getMetadata().then((metadata) => {
+            console.log(metadata.fullPath)
+            var desertRef = storageRef.child(metadata.fullPath);
+                // Delete the file
+                desertRef.delete().then(() => {
+                console.log("file deleted")
+                }).catch((error) => {
+                // Uh-oh, an error occurred!
+                });
+          })
+          });
+      }).catch((error) => {
+        // Uh-oh, an error occurred!
+      })
+      }
+
+    
+
 
     // delete user
     function handleDeleteUserAccount(e){
@@ -54,6 +80,16 @@ export default function Sidebar(props) {
     if(r === true){
         user.delete().then(function() {
         // User deleted.
+
+        // delete files *******************
+        deleteallfiles()
+
+        // ***
+        db.collection("files").doc(user.uid).delete().then(() => {
+            console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
             
         }).catch(function(error) {
         // An error happened.

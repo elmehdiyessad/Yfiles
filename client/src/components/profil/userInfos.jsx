@@ -12,8 +12,10 @@ export default function UserInfos() {
         user: {}
     })
 
+    const user = auth.currentUser
+
     // handlegetUsedStockage *********
-    function getUsedStockage () {
+    function getUsedStockage() {
         var totalsize ="0 GB"
         var size = 0
         var listRef = storageRef.child(user.uid);
@@ -28,7 +30,7 @@ export default function UserInfos() {
             var fSExt = new Array('Bytes', 'KB', 'MB', 'GB'),
             i=0;while(_size>900){_size/=1024;i++;}
             totalsize = (Math.round(_size * 100) / 100) + ' ' + fSExt[i];
-            this.setState({ size: size, totalsize: totalsize })
+            setState({ size: size, totalsize: totalsize })
           })
         });
     
@@ -42,34 +44,7 @@ export default function UserInfos() {
     useEffect(() => {
         getUsedStockage()
     }, [])
-
-    const user = auth.currentUser
-
-    
-
-
-    if(user){
-    db.collection('files').doc(user.uid).get()
-        .then((collections) => {
-            // console.log(collections)
-            // check if the collection exist
-            if(collections.exists === true){
-                // if the collection doesn't exist we create one for the user
-                // db.collection("files").doc(user.uid).set({
-                //     files: {
-                //     children: [],
-                //     id: user.uid,
-                //     module: "root"
-                //     },
-                //     uid_user:user.uid
-                // })
-                console.log(collections)
-            }
-        })
-    }
-    
-
-    
+   
 
     
     return (
