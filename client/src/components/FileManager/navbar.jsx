@@ -34,7 +34,7 @@ export default class NavBar extends Component {
                                         e.preventDefault();
                                         auth.signOut()
                                             .then(() => {
-                                                window.location.reload();
+                                                window.location.reload()
                                             })
                                             .catch(error => {
                                                 console.log("ERROR", error.message)

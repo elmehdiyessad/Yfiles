@@ -10,7 +10,7 @@ import { SettingsRemoteOutlined } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom'
 import {auth} from '../../firebase'
 
-var user={}
+var user=undefined
 auth.onAuthStateChanged((u) => {
     if (u !== null) {
         user=u
@@ -59,8 +59,8 @@ class Home extends Component {
     }
     render() {
     
-            if (user === null) { return (<Redirect to="/login" />) }
-            else {
+            
+            if (user )  {
                 return ( <Provider>
                 <div className="container-fluid fm">
                     <div className="row flex">
@@ -86,7 +86,8 @@ class Home extends Component {
                 </div>
             </Provider>
             );
-            }       
+        }
+        else { return (<Redirect to="/login" />) }
     }
 }
 
