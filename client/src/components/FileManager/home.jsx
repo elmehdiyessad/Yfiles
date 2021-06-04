@@ -60,7 +60,7 @@ class Home extends Component {
     render() {
     
             
-            if (user )  {
+            if (user)  {
                 return ( <Provider>
                 <div className="container-fluid fm">
                     <div className="row flex">
@@ -68,7 +68,7 @@ class Home extends Component {
                             {
                                 this.state.r ?
                                     <div>
-                                        <FontAwesomeIcon icon={faBars} className="m-2 icon float-right p button-menu" onClick={this.show} />
+                                        <FontAwesomeIcon icon={faBars} className="mt-4 ml-4  mr-2 icon float-right p button-menu" onClick={this.show} />
                                         <SideBar />
                                     </div>    
                                     :

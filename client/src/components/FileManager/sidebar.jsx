@@ -212,9 +212,9 @@ export default class Sidebar extends Component {
                      
                     <Tree draggable={false} tree={this.state.tree} onChange={this.handleChange} renderNode={this.renderNode} />
                   </div>
-                  <div className="text-center mt-3 mb-2">
+                  <div className="text-center mt-3 mb-4">
                       <h6>{this.state.totalsize + " used of 30MB"}</h6>
-                      <Progress value={this.state.size} max={30000000} />
+                      <Progress value={this.state.size} max={30000000} className="mb-2" />
                     </div>
                   
                 </div>
