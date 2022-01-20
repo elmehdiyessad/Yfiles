@@ -155,7 +155,7 @@ export default class Sidebar extends Component {
       this.setState({ user: user })
       db.collection("files").doc(this.state.user.uid).onSnapshot(snap => {
           this.setState({ tree: snap.data().files })
-        this.getUsedStockage()
+          this.getUsedStockage()
       })
     }
     })

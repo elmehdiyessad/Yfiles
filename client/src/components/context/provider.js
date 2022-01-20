@@ -6,7 +6,7 @@ import { db , storageRef , auth} from '../../firebase'
 import JSZIP from "jszip"
 import FileSaver from 'file-saver';
 deepdash(_);
- 
+ var zip = JSZIP()
 export default class Provider extends Component {
     constructor(props) {
         super(props)
@@ -34,7 +34,8 @@ export default class Provider extends Component {
             modalmove: false,
             IdItemtoMove: "",
             user: { uid: "" },
-            usedtorage: 0
+            usedtorage: 0,
+            generated:{},
         };
        this.deleteFromTree = this.deleteFromTree.bind(this)
     }
@@ -300,39 +301,60 @@ async getFileFromUrl (url, name, type) {
     type: type,
   });
     }
-    async findfile(folder) {
-    var zip = JSZIP()
-    let array = []
-    let r = await _.mapDeep(folder, (i) => {
-                    if (i.path) {          
-                            this.getFileFromUrl(i.url , i.module, i.contentType).then(f => {
-                               // console.log(f); 
-                               array.push(f) 
-                               zip.file(i.module, f)
-                            }).then(() => {
-                                zip.generateAsync({type:"blob"}).then(function(content) {             
-                               FileSaver.saveAs(content, folder.module);
-                            });
-                            })
-                        
-                    }
-              },
-             {
-                 childrenPath: "children",
-                 
-        })
-        return array
 
+
+    zipfolder = ( name , callback) => {
+        //var zip = JSZIP()
+        //console.log(callback)
+        //var r = array.forEach(e => () => {zip.file(e.module, e)})
+    
+     console.log(name);
+   /* zip.generateAsync({type:"blob"}).then(function(content) {             
+     FileSaver.saveAs(content, name);
+        
+    });*/
+    }
+    
+
+    async findfile(folder , callback) {
+        var g 
+        const promise = new Promise((resolve, reject) => {
+            _.mapDeep(folder, (i) => {
+                if (i.path) {
+                    this.getFileFromUrl(i.url, i.module, i.contentType).then(f => {
+                        zip.file(i.module, f)
+                        zip.generateAsync({ type: "blob" }).then((content) => {
+                            //FileSaver.saveAs(content, folder.module);
+                            // this.setState({generated : content})
+                            this.setState({ generated: content })
+                            console.log(content);
+                            g=content
+                            resolve(content)
+                        });
+                    })
+                }
+            },
+                {
+                    childrenPath: "children",
+                 
+                })
+        })
+        let result = await promise; //Attend que la promesse soit résolue ou rejetée
+        FileSaver.saveAs(result, folder.module);
+        //console.log(result);
+        //console.log(g);
+        //callback(folder.module , result)
+        return 
 }
+
+   
     download = (itemtype, item) => {
     if (itemtype === "file") {
         window.open(item.url)                     
       }
       if (itemtype === "folder") {
                  
-          this.findfile(item).then((array) => {
-            console.log(array.length);
-          })
+          this.findfile(item , this.zipfolder)
          
          
         }
